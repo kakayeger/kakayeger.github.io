@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>成人英语学习计划</title>
+<title>成人英语长期学习计划</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>EN</text></svg>">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
 <style>
@@ -23,6 +23,8 @@
     --stage1: #0ea5e9;
     --stage2: #8b5cf6;
     --stage3: #ec4899;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -38,7 +40,7 @@
   .hero {
     background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
     color: white;
-    padding: 64px 0 56px;
+    padding: 56px 0 48px;
     position: relative;
     overflow: hidden;
   }
@@ -50,69 +52,127 @@
     border-radius: 50%;
     background: rgba(20, 184, 166, 0.15);
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -30%; left: -10%;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: rgba(251, 146, 60, 0.1);
-  }
   .hero-content { position: relative; z-index: 1; }
   .hero h1 {
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 900;
     line-height: 1.2;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     letter-spacing: -0.02em;
   }
   .hero .subtitle {
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0.9;
     max-width: 600px;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     font-weight: 300;
   }
   .hero-stats {
     display: flex;
-    gap: 40px;
+    gap: 16px;
     flex-wrap: wrap;
   }
   .hero-stat {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.12);
     backdrop-filter: blur(10px);
     border-radius: 12px;
-    padding: 16px 24px;
+    padding: 14px 20px;
+    min-width: 120px;
   }
   .hero-stat .num {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     display: block;
   }
   .hero-stat .label {
-    font-size: 13px;
+    font-size: 12px;
     opacity: 0.8;
   }
 
+  /* ===== 打卡条 ===== */
+  .checkin-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .checkin-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .checkin-info {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .checkin-info strong {
+    color: var(--primary);
+    font-size: 18px;
+  }
+  .checkin-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .checkin-btn:hover { background: #115e59; transform: translateY(-1px); }
+  .checkin-btn.done {
+    background: var(--success);
+    cursor: default;
+  }
+  .checkin-btn.done:hover { transform: none; }
+
+  /* ===== 进度环 ===== */
+  .progress-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .progress-item {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .progress-item .pct {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .progress-item .p-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
   /* ===== Section ===== */
-  section { padding: 56px 0; }
+  section { padding: 48px 0; }
   .section-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--text);
   }
   .section-desc {
     color: var(--text-secondary);
-    margin-bottom: 36px;
-    font-size: 15px;
+    margin-bottom: 28px;
+    font-size: 14px;
   }
 
-  /* ===== Timeline ===== */
-  .timeline {
-    position: relative;
-    padding: 20px 0;
-  }
+  /* ===== Timeline / Stages ===== */
+  .timeline { position: relative; padding: 16px 0; }
   .timeline::before {
     content: '';
     position: absolute;
@@ -125,17 +185,18 @@
   .stage {
     position: relative;
     padding-left: 72px;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
   }
   .stage:last-child { margin-bottom: 0; }
   .stage-dot {
     position: absolute;
     left: 15.5px;
-    top: 8px;
+    top: 20px;
     width: 28px; height: 28px;
     border-radius: 50%;
     border: 4px solid var(--surface);
     box-shadow: 0 0 0 3px var(--border);
+    transition: transform 0.2s;
   }
   .stage:nth-child(1) .stage-dot { background: var(--stage1); }
   .stage:nth-child(2) .stage-dot { background: var(--stage2); }
@@ -144,31 +205,47 @@
   .stage-card {
     background: var(--surface);
     border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     border: 1px solid var(--border);
+    overflow: hidden;
   }
   .stage-header {
+    padding: 20px 24px;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .stage-header:hover { background: var(--bg); }
+  .stage-header-left {
+    display: flex;
     align-items: baseline;
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
   }
-  .stage-name {
+  .stage-name { font-size: 18px; font-weight: 700; }
+  .stage-period { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .toggle-icon {
     font-size: 20px;
-    font-weight: 700;
-  }
-  .stage-period {
-    font-size: 14px;
     color: var(--text-muted);
-    font-weight: 500;
+    transition: transform 0.3s;
+    font-weight: 300;
   }
+  .stage-card.open .toggle-icon { transform: rotate(180deg); }
+
+  .stage-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .stage-card.open .stage-body { max-height: 1200px; }
+  .stage-body-inner { padding: 0 24px 24px; }
+
   .stage-goal {
     color: var(--text-secondary);
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     padding: 12px 16px;
     background: var(--bg);
     border-radius: 8px;
@@ -177,24 +254,34 @@
   .stage-tasks {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
-  .task-item:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
+  .task-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .task-item {
     padding: 12px 14px;
     background: var(--bg);
     border-radius: 8px;
     font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
   }
-  .task-item .task-label {
+  .task-item:hover { border-color: var(--primary-light); }
+  .task-item.checked {
+    background: var(--success-bg);
+    border-color: var(--success);
+  }
+  .task-item.checked .task-label {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .task-item.checked .task-desc { opacity: 0.6; }
+  .task-label {
     font-weight: 600;
-    color: var(--text);
     display: block;
     margin-bottom: 2px;
   }
-  .task-item .task-desc {
+  .task-desc {
     color: var(--text-secondary);
     font-size: 13px;
   }
@@ -207,81 +294,78 @@
   }
   .stage-check strong { color: var(--accent); }
 
-  /* ===== Daily Schedule ===== */
-  .schedule-grid {
+  /* ===== 分模块计划 ===== */
+  .module-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
   }
-  .schedule-card {
+  .module-card {
     background: var(--surface);
     border-radius: 16px;
     padding: 24px;
     border: 1px solid var(--border);
   }
-  .schedule-card h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .schedule-card h3 .badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 500;
-  }
-  .badge-workday { background: var(--primary-bg); color: var(--primary); }
-  .badge-weekend { background: var(--accent-bg); color: var(--accent); }
-
-  .schedule-list { list-style: none; }
-  .schedule-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid var(--bg);
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .schedule-list li:last-child { border-bottom: none; }
-  .schedule-list .time {
-    color: var(--text-muted);
-    font-size: 13px;
-    white-space: nowrap;
-  }
-  .schedule-list .activity { color: var(--text-secondary); }
-
-  /* ===== Apps ===== */
-  .apps-section { background: var(--surface); }
-  .app-category {
-    margin-bottom: 32px;
-  }
-  .app-category h3 {
+  .module-card h3 {
     font-size: 17px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .app-category h3 .icon {
-    width: 28px; height: 28px;
+  .module-card h3 .mod-icon {
+    width: 32px; height: 32px;
     border-radius: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+  .module-order {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    background: var(--bg);
+    border-radius: 6px;
+    display: inline-block;
+  }
+  .module-card ul {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .module-card ul li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--bg);
+  }
+  .module-card ul li:last-child { border-bottom: none; }
+  .module-card ul li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ===== Apps ===== */
+  .app-category { margin-bottom: 28px; }
+  .app-category h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .app-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
   }
   .app-item {
-    padding: 16px;
-    background: var(--bg);
+    padding: 14px;
+    background: var(--surface);
     border-radius: 12px;
     border: 1px solid var(--border);
   }
@@ -296,59 +380,67 @@
   .free-tag {
     font-size: 10px;
     padding: 1px 6px;
-    background: #dcfce7;
-    color: #166534;
+    background: var(--success-bg);
+    color: var(--success);
     border-radius: 4px;
     font-weight: 600;
   }
-  .app-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
+  .app-desc { font-size: 13px; color: var(--text-secondary); }
 
-  /* ===== Level Map ===== */
+  /* ===== Level Cards ===== */
   .level-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
   }
   .level-card {
     border-radius: 16px;
-    padding: 24px;
+    padding: 22px;
     color: white;
   }
   .level-card:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
   .level-card:nth-child(2) { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
   .level-card:nth-child(3) { background: linear-gradient(135deg, #ec4899, #db2777); }
-  .level-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-  .level-card .vocab { font-size: 13px; opacity: 0.9; margin-bottom: 12px; }
+  .level-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .level-card .vocab { font-size: 12px; opacity: 0.9; margin-bottom: 10px; }
   .level-card ul { list-style: none; font-size: 13px; }
-  .level-card ul li { padding: 3px 0; opacity: 0.95; }
+  .level-card ul li { padding: 2px 0; opacity: 0.95; }
   .level-card ul li::before { content: '· '; }
 
   /* ===== Pitfalls ===== */
-  .pitfall-list { display: grid; gap: 12px; }
+  .pitfall-list { display: grid; gap: 10px; }
   .pitfall-item {
     background: var(--accent-bg);
     border-radius: 12px;
-    padding: 16px 20px;
+    padding: 14px 18px;
     border-left: 3px solid var(--accent);
   }
-  .pitfall-item .pit-title {
-    font-weight: 600;
-    color: var(--accent);
+  .pit-title { font-weight: 600; color: var(--accent); font-size: 14px; margin-bottom: 2px; }
+  .pit-desc { font-size: 13px; color: var(--text-secondary); }
+
+  /* ===== Toast ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
     font-size: 14px;
-    margin-bottom: 2px;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
   }
-  .pitfall-item .pit-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
   }
 
-  /* ===== Footer ===== */
   footer {
     text-align: center;
-    padding: 40px 0;
+    padding: 32px 0;
     color: var(--text-muted);
     font-size: 13px;
     border-top: 1px solid var(--border);
@@ -356,19 +448,19 @@
 
   /* ===== Responsive ===== */
   @media (max-width: 640px) {
-    .hero { padding: 40px 0; }
-    .hero h1 { font-size: 30px; }
-    .hero .subtitle { font-size: 16px; }
-    .hero-stats { gap: 12px; }
-    .hero-stat { padding: 12px 16px; }
-    .hero-stat .num { font-size: 22px; }
-    section { padding: 40px 0; }
-    .section-title { font-size: 22px; }
+    .hero { padding: 36px 0; }
+    .hero h1 { font-size: 28px; }
+    .hero .subtitle { font-size: 14px; }
+    .hero-stat { padding: 10px 14px; min-width: 100px; }
+    .hero-stat .num { font-size: 20px; }
+    section { padding: 36px 0; }
+    .section-title { font-size: 20px; }
     .timeline::before { left: 20px; }
     .stage { padding-left: 56px; }
-    .stage-dot { left: 9.5px; width: 24px; height: 24px; }
-    .stage-card { padding: 20px; }
+    .stage-dot { left: 9.5px; width: 24px; height: 24px; top: 18px; }
     .stage-tasks { grid-template-columns: 1fr; }
+    .task-item:last-child:nth-child(odd) { grid-column: auto; }
+    .checkin-inner { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -378,66 +470,87 @@
 <div class="hero">
   <div class="container hero-content">
     <h1>成人英语长期学习计划</h1>
-    <p class="subtitle">目标：能和外国人自由对话。每天 30–60 分钟，稳定坚持 3 年，从零基础到流利交流。</p>
+    <p class="subtitle">目标：能和外国人自由对话。每天 30–60 分钟，稳定坚持长期。</p>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="num">3 年</span>
-        <span class="label">完整周期</span>
+      <div class="hero-stat"><span class="num">长期</span><span class="label">完整周期</span></div>
+      <div class="hero-stat"><span class="num">30–60 分</span><span class="label">每日投入</span></div>
+      <div class="hero-stat"><span class="num">3 阶段</span><span class="label">循序渐进</span></div>
+      <div class="hero-stat"><span class="num">全部免费</span><span class="label">工具推荐</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 打卡条 ===== -->
+<div class="checkin-bar">
+  <div class="container checkin-inner">
+    <div class="checkin-info">
+      已坚持 <strong id="streakDays">0</strong> 天 · 累计打卡 <strong id="totalDays">0</strong> 天
+    </div>
+    <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">今日打卡</button>
+  </div>
+  <div class="container">
+    <div class="progress-row">
+      <div class="progress-item">
+        <div class="pct" id="todayProgress">0%</div>
+        <div class="p-label">今日任务完成度</div>
       </div>
-      <div class="hero-stat">
-        <span class="num">30–60 分</span>
-        <span class="label">每日投入</span>
+      <div class="progress-item">
+        <div class="pct" id="weekProgress">0%</div>
+        <div class="p-label">本周坚持度</div>
       </div>
-      <div class="hero-stat">
-        <span class="num">3 阶段</span>
-        <span class="label">循序渐进</span>
-      </div>
-      <div class="hero-stat">
-        <span class="num">全部免费</span>
-        <span class="label">工具推荐</span>
+      <div class="progress-item">
+        <div class="pct" id="overallProgress">0%</div>
+        <div class="p-label">3年总进度</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ===== 三阶段时间轴 ===== -->
+<!-- ===== 三阶段 ===== -->
 <section>
   <div class="container">
     <h2 class="section-title">三阶段路线图</h2>
-    <p class="section-desc">先打通听力和词汇，再补语法，最后强化口语输出。</p>
+    <p class="section-desc">点击卡片展开详情，点击任务可标记完成。</p>
 
-    <div class="timeline">
+    <div class="timeline" id="timeline">
       <!-- 阶段一 -->
       <div class="stage">
         <div class="stage-dot"></div>
-        <div class="stage-card">
-          <div class="stage-header">
-            <span class="stage-name">筑基期</span>
-            <span class="stage-period">0 – 6 个月</span>
+        <div class="stage-card open">
+          <div class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-header-left">
+              <span class="stage-name">筑基期</span>
+              <span class="stage-period">0 – 6 个月</span>
+            </div>
+            <span class="toggle-icon">▾</span>
           </div>
-          <div class="stage-goal">
-            目标：掌握音标、基础语法框架、2000–3000 核心词。能听懂慢速短句，读懂简单短文。
-          </div>
-          <div class="stage-tasks">
-            <div class="task-item">
-              <span class="task-label">词汇</span>
-              <span class="task-desc">每天 10–15 个高频词，复习优先于新词</span>
+          <div class="stage-body">
+            <div class="stage-body-inner">
+              <div class="stage-goal">
+                目标：掌握音标、基础语法框架、2000–3000 核心词。能听懂慢速短句，读懂简单短文。
+              </div>
+              <div class="stage-tasks">
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">词汇</span>
+                  <span class="task-desc">每天 10–15 个高频词，复习优先于新词</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">听力 15–20 分</span>
+                  <span class="task-desc">VOA 慢速 / EnglishPod，盲听→看原文→跟读</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">语法 10 分</span>
+                  <span class="task-desc">一次攻克一个小点，配套少量习题</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">跟读 5–10 分</span>
+                  <span class="task-desc">模仿语音语调，改善发音</span>
+                </div>
+              </div>
+              <div class="stage-check">
+                <strong>阶段检验：</strong>无字幕看懂简单动画短片；能写 50–80 词简短日记。对标水平：高考英语。
+              </div>
             </div>
-            <div class="task-item">
-              <span class="task-label">听力 15–20 分</span>
-              <span class="task-desc">VOA 慢速 / EnglishPod，盲听→看原文→跟读</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">语法 10 分</span>
-              <span class="task-desc">一次攻克一个小点，配套少量习题</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">跟读 5–10 分</span>
-              <span class="task-desc">模仿语音语调，改善发音</span>
-            </div>
-          </div>
-          <div class="stage-check">
-            <strong>阶段检验：</strong>无字幕看懂简单动画短片；能写 50–80 词简短日记。对标水平：高考英语。
           </div>
         </div>
       </div>
@@ -446,37 +559,44 @@
       <div class="stage">
         <div class="stage-dot"></div>
         <div class="stage-card">
-          <div class="stage-header">
-            <span class="stage-name">进阶期</span>
-            <span class="stage-period">7 – 18 个月</span>
+          <div class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-header-left">
+              <span class="stage-name">进阶期</span>
+              <span class="stage-period">7 – 18 个月</span>
+            </div>
+            <span class="toggle-icon">▾</span>
           </div>
-          <div class="stage-goal">
-            目标：词汇 4000–6000。听懂正常语速日常对话，阅读短文新闻，独立表达观点。能和外国人简单聊天。
-          </div>
-          <div class="stage-tasks">
-            <div class="task-item">
-              <span class="task-label">词汇</span>
-              <span class="task-desc">新词 8–12 个，重点积累短语搭配</span>
+          <div class="stage-body">
+            <div class="stage-body-inner">
+              <div class="stage-goal">
+                目标：词汇 4000–6000。听懂正常语速日常对话，阅读短文新闻，独立表达观点。能和外国人简单聊天。
+              </div>
+              <div class="stage-tasks">
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">词汇</span>
+                  <span class="task-desc">新词 8–12 个，重点积累短语搭配</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">听力 20 分</span>
+                  <span class="task-desc">TED-Ed、BBC Learning English、美剧片段精听</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">阅读 15 分</span>
+                  <span class="task-desc">分级读物、BBC 短文，读完复述大意</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">口语输出 10 分</span>
+                  <span class="task-desc">自言自语描述生活，录音回听纠错</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">写作 每周 2–3 次</span>
+                  <span class="task-desc">100 词左右日记或话题短文</span>
+                </div>
+              </div>
+              <div class="stage-check">
+                <strong>阶段检验：</strong>无字幕看懂生活化美剧；能独立进行 10 分钟简单英文对话。对标水平：大学四级到六级。
+              </div>
             </div>
-            <div class="task-item">
-              <span class="task-label">听力 20 分</span>
-              <span class="task-desc">TED-Ed、BBC Learning English、美剧片段精听</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">阅读 15 分</span>
-              <span class="task-desc">分级读物、BBC 短文，读完复述大意</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">口语输出 10 分</span>
-              <span class="task-desc">自言自语描述生活，录音回听纠错</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">写作 每周 2–3 次</span>
-              <span class="task-desc">100 词左右日记或话题短文</span>
-            </div>
-          </div>
-          <div class="stage-check">
-            <strong>阶段检验：</strong>无字幕看懂生活化美剧；能独立进行 10 分钟简单英文对话。对标水平：大学四级到六级。
           </div>
         </div>
       </div>
@@ -485,37 +605,44 @@
       <div class="stage">
         <div class="stage-dot"></div>
         <div class="stage-card">
-          <div class="stage-header">
-            <span class="stage-name">流利应用期</span>
-            <span class="stage-period">19 – 36 个月</span>
+          <div class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-header-left">
+              <span class="stage-name">流利应用期</span>
+              <span class="stage-period">19 – 36 个月</span>
+            </div>
+            <span class="toggle-icon">▾</span>
           </div>
-          <div class="stage-goal">
-            目标：词汇 7000–9000。听懂原生播客演讲，阅读原版书，流畅表达复杂观点，可应对工作和深度交流。
-          </div>
-          <div class="stage-tasks">
-            <div class="task-item">
-              <span class="task-label">词汇</span>
-              <span class="task-desc">以阅读听力生词为主，重点习语和地道表达</span>
+          <div class="stage-body">
+            <div class="stage-body-inner">
+              <div class="stage-goal">
+                目标：词汇 7000–9000。听懂原生播客演讲，阅读原版书，流畅表达复杂观点，可应对工作和深度交流。
+              </div>
+              <div class="stage-tasks">
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">词汇</span>
+                  <span class="task-desc">以阅读听力生词为主，重点习语和地道表达</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">听力 20 分</span>
+                  <span class="task-desc">英文播客、TED 演讲、纪录片</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">阅读 20 分</span>
+                  <span class="task-desc">原版小说、外刊，训练长难句</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">口语 10–15 分</span>
+                  <span class="task-desc">话题讨论、复述观点，训练表达流利度</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <span class="task-label">写作 每周 2–3 篇</span>
+                  <span class="task-desc">150–250 词议论文、邮件、书评</span>
+                </div>
+              </div>
+              <div class="stage-check">
+                <strong>阶段检验：</strong>看纪录片基本不用字幕；能自由讨论抽象话题。对标水平：雅思 6.0–6.5。
+              </div>
             </div>
-            <div class="task-item">
-              <span class="task-label">听力 20 分</span>
-              <span class="task-desc">英文播客、TED 演讲、纪录片</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">阅读 20 分</span>
-              <span class="task-desc">原版小说、外刊，训练长难句</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">口语 10–15 分</span>
-              <span class="task-desc">话题讨论、复述观点，有条件找语伴</span>
-            </div>
-            <div class="task-item">
-              <span class="task-label">写作 每周 2–3 篇</span>
-              <span class="task-desc">150–250 词议论文、邮件、书评</span>
-            </div>
-          </div>
-          <div class="stage-check">
-            <strong>阶段检验：</strong>看纪录片基本不用字幕；能自由讨论抽象话题。对标水平：雅思 6.0–6.5。
           </div>
         </div>
       </div>
@@ -523,96 +650,116 @@
   </div>
 </section>
 
-<!-- ===== 每周安排 ===== -->
+<!-- ===== 零基础分模块计划 ===== -->
 <section style="background: var(--surface);">
   <div class="container">
-    <h2 class="section-title">每周安排模板</h2>
-    <p class="section-desc">上班族友好：工作日轻量坚持，周末集中复盘。</p>
+    <h2 class="section-title">零基础分模块学习计划</h2>
+    <p class="section-desc">按模块逐个突破，不贪多不求快。每个模块先打基础再进阶。</p>
 
-    <div class="schedule-grid">
-      <div class="schedule-card">
-        <h3>周一至周五 <span class="badge badge-workday">每日 30–60 分</span></h3>
-        <ul class="schedule-list">
-          <li><span class="activity">精听 + 跟读</span><span class="time">20 分</span></li>
-          <li><span class="activity">词汇复习 + 新词</span><span class="time">15 分</span></li>
-          <li><span class="activity">口语自言自语</span><span class="time">10 分</span></li>
-          <li><span class="activity">语法 / 阅读</span><span class="time">10 分</span></li>
+    <div class="module-grid">
+      <!-- 单词 -->
+      <div class="module-card">
+        <h3><span class="mod-icon" style="background: #0ea5e9;">词</span>单词模块</h3>
+        <span class="module-order">学习顺序：第1个月开始，贯穿全程</span>
+        <ul>
+          <li><strong>第1–3个月：</strong>背高频生活词 2000 个，优先日常场景（购物、出行、饮食）</li>
+          <li><strong>第4–6个月：</strong>扩展到 3000 词，重点短语搭配，不背孤立单词</li>
+          <li><strong>第7–18个月：</strong>新词降到每天 8–12 个，从听力阅读里积累生词</li>
+          <li><strong>方法：</strong>多复习、重复习，旧词复习＞新词学习</li>
+          <li><strong>误区：</strong>不要背生僻学术词，不要只记中文意思不记例句</li>
         </ul>
       </div>
-      <div class="schedule-card">
-        <h3>周六 <span class="badge badge-weekend">复盘日 90 分</span></h3>
-        <ul class="schedule-list">
-          <li><span class="activity">本周错题复盘</span><span class="time">20 分</span></li>
-          <li><span class="activity">精听长片段</span><span class="time">30 分</span></li>
-          <li><span class="activity">写一篇短文</span><span class="time">30 分</span></li>
-          <li><span class="activity">查漏补缺</span><span class="time">10 分</span></li>
+
+      <!-- 语法 -->
+      <div class="module-card">
+        <h3><span class="mod-icon" style="background: #8b5cf6;">法</span>语法模块</h3>
+        <span class="module-order">学习顺序：第2个月开始，6个月打框架</span>
+        <ul>
+          <li><strong>第1步：</strong>词性（名词、动词、形容词）→ 句子基本结构（主谓宾）</li>
+          <li><strong>第2步：</strong>三大基础时态（一般现在、一般过去、一般将来）</li>
+          <li><strong>第3步：</strong>进行时、完成时 → 定语从句、状语从句</li>
+          <li><strong>第4步：</strong>被动语态、虚拟语气（进阶再学）</li>
+          <li><strong>方法：</strong>一次攻克一个小点，做 10–20 道配套题巩固</li>
+          <li><strong>误区：</strong>不要一口气学完所有语法，不要钻牛角尖</li>
         </ul>
       </div>
-      <div class="schedule-card">
-        <h3>周日 <span class="badge badge-workday">轻量泛输入</span></h3>
-        <ul class="schedule-list">
-          <li><span class="activity">看英文短视频</span><span class="time">放松</span></li>
-          <li><span class="activity">泛听播客</span><span class="time">30 分</span></li>
-          <li><span class="activity">不做高强度练习</span><span class="time">休息</span></li>
+
+      <!-- 时态 -->
+      <div class="module-card">
+        <h3><span class="mod-icon" style="background: #ec4899;">时</span>时态模块</h3>
+        <span class="module-order">学习顺序：第2个月开始，先掌握5个核心时态</span>
+        <ul>
+          <li><strong>必学5个核心时态：</strong>一般现在、一般过去、一般将来、现在进行、现在完成</li>
+          <li><strong>第1–3个月：</strong>前3个基础时态，能造简单句</li>
+          <li><strong>第4–6个月：</strong>现在进行、现在完成，能描述正在发生和已完成的事</li>
+          <li><strong>进阶：</strong>过去进行、过去完成、将来进行等（第7个月后逐步接触）</li>
+          <li><strong>方法：</strong>每个时态造 5 个自己生活相关的句子，不要背规则</li>
+          <li><strong>误区：</strong>16 种时态不用一次学完，日常对话 5 个够用</li>
+        </ul>
+      </div>
+
+      <!-- 听力 -->
+      <div class="module-card">
+        <h3><span class="mod-icon" style="background: #14b8a6;">听</span>听力模块</h3>
+        <span class="module-order">学习顺序：第1天就开始，每天必练</span>
+        <ul>
+          <li><strong>第1–3个月：</strong>VOA 慢速，盲听 → 看原文 → 跟读，15 分钟</li>
+          <li><strong>第4–6个月：</strong>EnglishPod、BBC 6 Minute English，20 分钟</li>
+          <li><strong>第7–18个月：</strong>TED-Ed、美剧片段精听，20 分钟</li>
+          <li><strong>方法：</strong>精听为主（一段反复听），泛听为辅（通勤磨耳朵）</li>
+          <li><strong>误区：</strong>不要只泛听不精听，不要一上来就看无字幕美剧</li>
+        </ul>
+      </div>
+
+      <!-- 口语 -->
+      <div class="module-card">
+        <h3><span class="mod-icon" style="background: #ea580c;">说</span>口语模块</h3>
+        <span class="module-order">学习顺序：第3个月开始，先自言自语再对话</span>
+        <ul>
+          <li><strong>第1–2个月：</strong>跟读模仿，练发音和语调，不要求自由表达</li>
+          <li><strong>第3–6个月：</strong>自言自语描述生活，录音回听纠错，10 分钟</li>
+          <li><strong>第7–18个月：</strong>用 AI 模拟对话，练话题表达和会话策略</li>
+          <li><strong>必会策略：</strong>Pardon? / Could you rephrase that? / How do you say...?</li>
+          <li><strong>方法：</strong>先敢说，再说对；先流利，再准确</li>
+          <li><strong>误区：</strong>不要等语法完美才开口，不要害怕犯错</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 免费软件推荐 ===== -->
-<section class="apps-section">
+<!-- ===== 免费工具 ===== -->
+<section style="background: var(--surface);">
   <div class="container">
     <h2 class="section-title">免费工具推荐</h2>
-    <p class="section-desc">核心功能全部免费，少量广告不影响使用。按学习目标搭配使用。</p>
+    <p class="section-desc">核心功能全部免费，按学习目标搭配使用。</p>
 
     <div class="app-category">
-      <h3>
-        <span class="icon" style="background: var(--primary-bg); color: var(--primary);">AI</span>
-        AI 口语陪练（新手首选，无压力开口）
-      </h3>
+      <h3>AI 口语陪练（新手首选，无压力开口）</h3>
       <div class="app-list">
         <div class="app-item">
           <div class="app-name">豆包 <span class="free-tag">免费</span></div>
           <div class="app-desc">完全不限次数英文对话，实时回复、改语法、替换地道表达。</div>
         </div>
-        <div class="app-item">
-          <div class="app-name">可栗口语 <span class="free-tag">免费</span></div>
-          <div class="app-desc">生活场景对话，AI 实时纠错，从短句到自由聊天分级练习。</div>
-        </div>
       </div>
     </div>
 
     <div class="app-category">
-      <h3>
-        <span class="icon" style="background: #e0f2fe; color: #0284c7;">听</span>
-        听力 + 跟读（对话的根基）
-      </h3>
+      <h3>听力 + 跟读（对话的根基）</h3>
       <div class="app-list">
         <div class="app-item">
           <div class="app-name">每日英语听力 <span class="free-tag">免费</span></div>
           <div class="app-desc">VOA、BBC、TED、播客、影视片段全收录，精听跟读调速全免费。</div>
         </div>
-        <div class="app-item">
-          <div class="app-name">可可英语 <span class="free-tag">免费</span></div>
-          <div class="app-desc">海量免费听力素材，美剧新闻分级短文，听写跟读功能完善。</div>
-        </div>
       </div>
     </div>
 
     <div class="app-category">
-      <h3>
-        <span class="icon" style="background: #fef3c7; color: #d97706;">词</span>
-        单词工具（积累口语高频短语）
-      </h3>
+      <h3>单词工具</h3>
       <div class="app-list">
         <div class="app-item">
           <div class="app-name">不背单词 <span class="free-tag">免费</span></div>
           <div class="app-desc">原声例句，适合积累口语短语，基础词书完全够用。</div>
-        </div>
-        <div class="app-item">
-          <div class="app-name">Anki <span class="free-tag">免费</span></div>
-          <div class="app-desc">开源记忆卡片，艾宾浩斯复习，可自制生词本。</div>
         </div>
         <div class="app-item">
           <div class="app-name">有道词典 <span class="free-tag">免费</span></div>
@@ -621,44 +768,14 @@
       </div>
     </div>
 
-    <div class="app-category">
-      <h3>
-        <span class="icon" style="background: #fce7f3; color: #db2777;">聊</span>
-        真人对话（进阶后使用）
-      </h3>
-      <div class="app-list">
-        <div class="app-item">
-          <div class="app-name">HelloTalk <span class="free-tag">免费</span></div>
-          <div class="app-desc">语言交换社区，你教中文老外教英语，语音通话免费。</div>
-        </div>
-        <div class="app-item">
-          <div class="app-name">Tandem <span class="free-tag">免费</span></div>
-          <div class="app-desc">同类语言交换，社区审核更严，用户质量相对更高。</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="app-category">
-      <h3>
-        <span class="icon" style="background: #f3e8ff; color: #7c3aed;">基</span>
-        入门打基础（零基础适用）
-      </h3>
-      <div class="app-list">
-        <div class="app-item">
-          <div class="app-name">多邻国 Duolingo <span class="free-tag">免费</span></div>
-          <div class="app-desc">闯关式课程，听说读写全覆盖，培养语感和基础句型。</div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- ===== 对话水平对标 ===== -->
+<!-- ===== 对话水平 ===== -->
 <section>
   <div class="container">
     <h2 class="section-title">和外国人对话的三个水平</h2>
     <p class="section-desc">不是看证书，看实际听说能力。</p>
-
     <div class="level-grid">
       <div class="level-card">
         <h3>基础对话</h3>
@@ -686,7 +803,7 @@
         <ul>
           <li>听懂不同口音</li>
           <li>辩论、聊观点、分析问题</li>
-          <li>听懂俚语玩笑能幽默回应</li>
+          <li>听懂玩笑能幽默回应</li>
           <li>语法错误很少表达地道</li>
         </ul>
       </div>
@@ -694,12 +811,11 @@
   </div>
 </section>
 
-<!-- ===== 避坑指南 ===== -->
+<!-- ===== 避坑 ===== -->
 <section style="background: var(--surface);">
   <div class="container">
     <h2 class="section-title">自学避坑指南</h2>
     <p class="section-desc">成人自学最容易踩的四个坑。</p>
-
     <div class="pitfall-list">
       <div class="pitfall-item">
         <div class="pit-title">只背单词不做听力阅读</div>
@@ -707,15 +823,15 @@
       </div>
       <div class="pitfall-item">
         <div class="pit-title">一次性学很久然后中断</div>
-        <div class="pit-desc">稳定短时间远胜突击。中断一周，听力语感就明显下滑。每天 30 分钟坚持一年，胜过每天 3 小时坚持两周。</div>
+        <div class="pit-desc">稳定短时间远胜突击。每天 30 分钟坚持一年，胜过每天 3 小时坚持两周。</div>
       </div>
       <div class="pitfall-item">
         <div class="pit-title">害怕开口</div>
-        <div class="pit-desc">哪怕自言自语录音也是输出。不用一开始就找外国人对话，先和 AI 练到不紧张再上真人。</div>
+        <div class="pit-desc">哪怕自言自语录音也是输出。先和 AI 练到不紧张再开始真实对话。</div>
       </div>
       <div class="pitfall-item">
         <div class="pit-title">疯狂刷难题</div>
-        <div class="pit-desc">成人学习目标是使用，不是应试。优先实用表达和场景对话，不要钻语法牛角尖。</div>
+        <div class="pit-desc">成人学习目标是使用，不是应试。优先实用表达和场景对话。</div>
       </div>
     </div>
   </div>
@@ -723,9 +839,121 @@
 
 <footer>
   <div class="container">
-    坚持是唯一的捷径 · 每天 30 分钟，终会有结果
+    坚持是唯一的捷径 · 每天 30 分钟，三年后见分晓
   </div>
 </footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== 数据存储 =====
+const STORAGE_KEY = 'english_plan_data';
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// ===== 打卡 =====
+function doCheckin() {
+  const today = todayStr();
+  if (data[today] && data[today].checked) {
+    showToast('今天已经打过卡啦');
+    return;
+  }
+  if (!data[today]) data[today] = {};
+  data[today].checked = true;
+  saveData();
+  updateCheckinUI();
+  showToast('打卡成功！继续保持');
+}
+
+function calcStreak() {
+  let streak = 0;
+  let d = new Date();
+  // 从今天往前数
+  while (true) {
+    const key = d.toISOString().slice(0, 10);
+    if (data[key] && data[key].checked) {
+      streak++;
+      d.setDate(d.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+function calcTotal() {
+  return Object.values(data).filter(d => d.checked).length;
+}
+
+function updateCheckinUI() {
+  const today = todayStr();
+  const checked = data[today] && data[today].checked;
+  const btn = document.getElementById('checkinBtn');
+  if (checked) {
+    btn.textContent = '今日已打卡 ✓';
+    btn.classList.add('done');
+  } else {
+    btn.textContent = '今日打卡';
+    btn.classList.remove('done');
+  }
+  document.getElementById('streakDays').textContent = calcStreak();
+  document.getElementById('totalDays').textContent = calcTotal();
+  updateProgress();
+}
+
+// ===== 任务勾选 =====
+function toggleTask(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+}
+
+function updateProgress() {
+  // 今日任务完成度（所有任务项中已勾选的比例）
+  const allTasks = document.querySelectorAll('.task-item');
+  const checkedTasks = document.querySelectorAll('.task-item.checked');
+  const todayPct = allTasks.length ? Math.round(checkedTasks.length / allTasks.length * 100) : 0;
+  document.getElementById('todayProgress').textContent = todayPct + '%';
+
+  // 本周坚持度（本周打卡天数 / 7）
+  const now = new Date();
+  const dayOfWeek = now.getDay() || 7; // 周日=0→7
+  let weekDays = 0;
+  for (let i = 0; i < dayOfWeek; i++) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    if (data[key] && data[key].checked) weekDays++;
+  }
+  document.getElementById('weekProgress').textContent = Math.round(weekDays / 7 * 100) + '%';
+
+  // 3年总进度（已打卡天数 / 1095）
+  const total = calcTotal();
+  document.getElementById('overallProgress').textContent = Math.round(total / 1095 * 100) + '%';
+}
+
+// ===== 折叠阶段 =====
+function toggleStage(headerEl) {
+  headerEl.parentElement.classList.toggle('open');
+}
+
+// ===== Toast =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// ===== 初始化 =====
+updateCheckinUI();
+</script>
 
 </body>
 </html>

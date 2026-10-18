@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>成人英语学习计划</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>EN</text></svg>">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --text: #1a2332;
+    --text-secondary: #5a6577;
+    --text-muted: #8b95a5;
+    --primary: #0f766e;
+    --primary-light: #14b8a6;
+    --primary-bg: #f0fdfa;
+    --accent: #ea580c;
+    --accent-light: #fb923c;
+    --accent-bg: #fff7ed;
+    --border: #e5e7eb;
+    --stage1: #0ea5e9;
+    --stage2: #8b5cf6;
+    --stage3: #ec4899;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Hero ===== */
+  .hero {
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+    color: white;
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: rgba(20, 184, 166, 0.15);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%; left: -10%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(251, 146, 60, 0.1);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 16px 24px;
+  }
+  .hero-stat .num {
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+  }
+  .hero-stat .label {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  /* ===== Section ===== */
+  section { padding: 56px 0; }
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+    font-size: 15px;
+  }
+
+  /* ===== Timeline ===== */
+  .timeline {
+    position: relative;
+    padding: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .stage {
+    position: relative;
+    padding-left: 72px;
+    margin-bottom: 48px;
+  }
+  .stage:last-child { margin-bottom: 0; }
+  .stage-dot {
+    position: absolute;
+    left: 15.5px;
+    top: 8px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 4px solid var(--surface);
+    box-shadow: 0 0 0 3px var(--border);
+  }
+  .stage:nth-child(1) .stage-dot { background: var(--stage1); }
+  .stage:nth-child(2) .stage-dot { background: var(--stage2); }
+  .stage:nth-child(3) .stage-dot { background: var(--stage3); }
+
+  .stage-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+  }
+  .stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .stage-name {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .stage-period {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .stage-goal {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-light);
+  }
+  .stage-tasks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .task-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .task-item {
+    padding: 12px 14px;
+    background: var(--bg);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .task-item .task-label {
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .task-item .task-desc {
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+  .stage-check {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .stage-check strong { color: var(--accent); }
+
+  /* ===== Daily Schedule ===== */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .schedule-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+  }
+  .schedule-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .schedule-card h3 .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .badge-workday { background: var(--primary-bg); color: var(--primary); }
+  .badge-weekend { background: var(--accent-bg); color: var(--accent); }
+
+  .schedule-list { list-style: none; }
+  .schedule-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--bg);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .schedule-list li:last-child { border-bottom: none; }
+  .schedule-list .time {
+    color: var(--text-muted);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .schedule-list .activity { color: var(--text-secondary); }
+
+  /* ===== Apps ===== */
+  .apps-section { background: var(--surface); }
+  .app-category {
+    margin-bottom: 32px;
+  }
+  .app-category h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .app-category h3 .icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .app-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .app-item {
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .app-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .free-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .app-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* ===== Level Map ===== */
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .level-card {
+    border-radius: 16px;
+    padding: 24px;
+    color: white;
+  }
+  .level-card:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+  .level-card:nth-child(2) { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+  .level-card:nth-child(3) { background: linear-gradient(135deg, #ec4899, #db2777); }
+  .level-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .level-card .vocab { font-size: 13px; opacity: 0.9; margin-bottom: 12px; }
+  .level-card ul { list-style: none; font-size: 13px; }
+  .level-card ul li { padding: 3px 0; opacity: 0.95; }
+  .level-card ul li::before { content: '· '; }
+
+  /* ===== Pitfalls ===== */
+  .pitfall-list { display: grid; gap: 12px; }
+  .pitfall-item {
+    background: var(--accent-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+  }
+  .pitfall-item .pit-title {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .pitfall-item .pit-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .hero { padding: 40px 0; }
+    .hero h1 { font-size: 30px; }
+    .hero .subtitle { font-size: 16px; }
+    .hero-stats { gap: 12px; }
+    .hero-stat { padding: 12px 16px; }
+    .hero-stat .num { font-size: 22px; }
+    section { padding: 40px 0; }
+    .section-title { font-size: 22px; }
+    .timeline::before { left: 20px; }
+    .stage { padding-left: 56px; }
+    .stage-dot { left: 9.5px; width: 24px; height: 24px; }
+    .stage-card { padding: 20px; }
+    .stage-tasks { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="container hero-content">
+    <h1>成人英语长期学习计划</h1>
+    <p class="subtitle">目标：能和外国人自由对话。每天 30–60 分钟，稳定坚持 3 年，从零基础到流利交流。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num">3 年</span>
+        <span class="label">完整周期</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">30–60 分</span>
+        <span class="label">每日投入</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">3 阶段</span>
+        <span class="label">循序渐进</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">全部免费</span>
+        <span class="label">工具推荐</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 三阶段时间轴 ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">三阶段路线图</h2>
+    <p class="section-desc">先打通听力和词汇，再补语法，最后强化口语输出。</p>
+
+    <div class="timeline">
+      <!-- 阶段一 -->
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-card">
+          <div class="stage-header">
+            <span class="stage-name">筑基期</span>
+            <span class="stage-period">0 – 6 个月</span>
+          </div>
+          <div class="stage-goal">
+            目标：掌握音标、基础语法框架、2000–3000 核心词。能听懂慢速短句，读懂简单短文。
+          </div>
+          <div class="stage-tasks">
+            <div class="task-item">
+              <span class="task-label">词汇</span>
+              <span class="task-desc">每天 10–15 个高频词，复习优先于新词</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">听力 15–20 分</span>
+              <span class="task-desc">VOA 慢速 / EnglishPod，盲听→看原文→跟读</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">语法 10 分</span>
+              <span class="task-desc">一次攻克一个小点，配套少量习题</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">跟读 5–10 分</span>
+              <span class="task-desc">模仿语音语调，改善发音</span>
+            </div>
+          </div>
+          <div class="stage-check">
+            <strong>阶段检验：</strong>无字幕看懂简单动画短片；能写 50–80 词简短日记。对标水平：高考英语。
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段二 -->
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-card">
+          <div class="stage-header">
+            <span class="stage-name">进阶期</span>
+            <span class="stage-period">7 – 18 个月</span>
+          </div>
+          <div class="stage-goal">
+            目标：词汇 4000–6000。听懂正常语速日常对话，阅读短文新闻，独立表达观点。能和外国人简单聊天。
+          </div>
+          <div class="stage-tasks">
+            <div class="task-item">
+              <span class="task-label">词汇</span>
+              <span class="task-desc">新词 8–12 个，重点积累短语搭配</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">听力 20 分</span>
+              <span class="task-desc">TED-Ed、BBC Learning English、美剧片段精听</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">阅读 15 分</span>
+              <span class="task-desc">分级读物、BBC 短文，读完复述大意</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">口语输出 10 分</span>
+              <span class="task-desc">自言自语描述生活，录音回听纠错</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">写作 每周 2–3 次</span>
+              <span class="task-desc">100 词左右日记或话题短文</span>
+            </div>
+          </div>
+          <div class="stage-check">
+            <strong>阶段检验：</strong>无字幕看懂生活化美剧；能独立进行 10 分钟简单英文对话。对标水平：大学四级到六级。
+          </div>
+        </div>
+      </div>
+
+      <!-- 阶段三 -->
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-card">
+          <div class="stage-header">
+            <span class="stage-name">流利应用期</span>
+            <span class="stage-period">19 – 36 个月</span>
+          </div>
+          <div class="stage-goal">
+            目标：词汇 7000–9000。听懂原生播客演讲，阅读原版书，流畅表达复杂观点，可应对工作和深度交流。
+          </div>
+          <div class="stage-tasks">
+            <div class="task-item">
+              <span class="task-label">词汇</span>
+              <span class="task-desc">以阅读听力生词为主，重点习语和地道表达</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">听力 20 分</span>
+              <span class="task-desc">英文播客、TED 演讲、纪录片</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">阅读 20 分</span>
+              <span class="task-desc">原版小说、外刊，训练长难句</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">口语 10–15 分</span>
+              <span class="task-desc">话题讨论、复述观点，有条件找语伴</span>
+            </div>
+            <div class="task-item">
+              <span class="task-label">写作 每周 2–3 篇</span>
+              <span class="task-desc">150–250 词议论文、邮件、书评</span>
+            </div>
+          </div>
+          <div class="stage-check">
+            <strong>阶段检验：</strong>看纪录片基本不用字幕；能自由讨论抽象话题。对标水平：雅思 6.0–6.5。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 每周安排 ===== -->
+<section style="background: var(--surface);">
+  <div class="container">
+    <h2 class="section-title">每周安排模板</h2>
+    <p class="section-desc">上班族友好：工作日轻量坚持，周末集中复盘。</p>
+
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <h3>周一至周五 <span class="badge badge-workday">每日 30–60 分</span></h3>
+        <ul class="schedule-list">
+          <li><span class="activity">精听 + 跟读</span><span class="time">20 分</span></li>
+          <li><span class="activity">词汇复习 + 新词</span><span class="time">15 分</span></li>
+          <li><span class="activity">口语自言自语</span><span class="time">10 分</span></li>
+          <li><span class="activity">语法 / 阅读</span><span class="time">10 分</span></li>
+        </ul>
+      </div>
+      <div class="schedule-card">
+        <h3>周六 <span class="badge badge-weekend">复盘日 90 分</span></h3>
+        <ul class="schedule-list">
+          <li><span class="activity">本周错题复盘</span><span class="time">20 分</span></li>
+          <li><span class="activity">精听长片段</span><span class="time">30 分</span></li>
+          <li><span class="activity">写一篇短文</span><span class="time">30 分</span></li>
+          <li><span class="activity">查漏补缺</span><span class="time">10 分</span></li>
+        </ul>
+      </div>
+      <div class="schedule-card">
+        <h3>周日 <span class="badge badge-workday">轻量泛输入</span></h3>
+        <ul class="schedule-list">
+          <li><span class="activity">看英文短视频</span><span class="time">放松</span></li>
+          <li><span class="activity">泛听播客</span><span class="time">30 分</span></li>
+          <li><span class="activity">不做高强度练习</span><span class="time">休息</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 免费软件推荐 ===== -->
+<section class="apps-section">
+  <div class="container">
+    <h2 class="section-title">免费工具推荐</h2>
+    <p class="section-desc">核心功能全部免费，少量广告不影响使用。按学习目标搭配使用。</p>
+
+    <div class="app-category">
+      <h3>
+        <span class="icon" style="background: var(--primary-bg); color: var(--primary);">AI</span>
+        AI 口语陪练（新手首选，无压力开口）
+      </h3>
+      <div class="app-list">
+        <div class="app-item">
+          <div class="app-name">豆包 <span class="free-tag">免费</span></div>
+          <div class="app-desc">完全不限次数英文对话，实时回复、改语法、替换地道表达。</div>
+        </div>
+        <div class="app-item">
+          <div class="app-name">可栗口语 <span class="free-tag">免费</span></div>
+          <div class="app-desc">生活场景对话，AI 实时纠错，从短句到自由聊天分级练习。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-category">
+      <h3>
+        <span class="icon" style="background: #e0f2fe; color: #0284c7;">听</span>
+        听力 + 跟读（对话的根基）
+      </h3>
+      <div class="app-list">
+        <div class="app-item">
+          <div class="app-name">每日英语听力 <span class="free-tag">免费</span></div>
+          <div class="app-desc">VOA、BBC、TED、播客、影视片段全收录，精听跟读调速全免费。</div>
+        </div>
+        <div class="app-item">
+          <div class="app-name">可可英语 <span class="free-tag">免费</span></div>
+          <div class="app-desc">海量免费听力素材，美剧新闻分级短文，听写跟读功能完善。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-category">
+      <h3>
+        <span class="icon" style="background: #fef3c7; color: #d97706;">词</span>
+        单词工具（积累口语高频短语）
+      </h3>
+      <div class="app-list">
+        <div class="app-item">
+          <div class="app-name">不背单词 <span class="free-tag">免费</span></div>
+          <div class="app-desc">原声例句，适合积累口语短语，基础词书完全够用。</div>
+        </div>
+        <div class="app-item">
+          <div class="app-name">Anki <span class="free-tag">免费</span></div>
+          <div class="app-desc">开源记忆卡片，艾宾浩斯复习，可自制生词本。</div>
+        </div>
+        <div class="app-item">
+          <div class="app-name">有道词典 <span class="free-tag">免费</span></div>
+          <div class="app-desc">查词、发音、例句，日常翻译必备。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-category">
+      <h3>
+        <span class="icon" style="background: #fce7f3; color: #db2777;">聊</span>
+        真人对话（进阶后使用）
+      </h3>
+      <div class="app-list">
+        <div class="app-item">
+          <div class="app-name">HelloTalk <span class="free-tag">免费</span></div>
+          <div class="app-desc">语言交换社区，你教中文老外教英语，语音通话免费。</div>
+        </div>
+        <div class="app-item">
+          <div class="app-name">Tandem <span class="free-tag">免费</span></div>
+          <div class="app-desc">同类语言交换，社区审核更严，用户质量相对更高。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-category">
+      <h3>
+        <span class="icon" style="background: #f3e8ff; color: #7c3aed;">基</span>
+        入门打基础（零基础适用）
+      </h3>
+      <div class="app-list">
+        <div class="app-item">
+          <div class="app-name">多邻国 Duolingo <span class="free-tag">免费</span></div>
+          <div class="app-desc">闯关式课程，听说读写全覆盖，培养语感和基础句型。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 对话水平对标 ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">和外国人对话的三个水平</h2>
+    <p class="section-desc">不是看证书，看实际听说能力。</p>
+
+    <div class="level-grid">
+      <div class="level-card">
+        <h3>基础对话</h3>
+        <div class="vocab">词汇量约 3000 · 筑基期结束</div>
+        <ul>
+          <li>自我介绍、天气、爱好寒暄</li>
+          <li>对方语速慢能听懂大部分</li>
+          <li>简单句表达，偶尔卡顿</li>
+          <li>点菜问路等日常场景</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <h3>自由日常对话</h3>
+        <div class="vocab">词汇量 5000–6000 · 进阶期结束</div>
+        <ul>
+          <li>正常母语语速聊天</li>
+          <li>能讲经历、看法、聊电影工作</li>
+          <li>不会的词能换说法解释</li>
+          <li>不用频繁让对方重复</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <h3>流利深度对话</h3>
+        <div class="vocab">词汇量 7000–9000 · 流利期结束</div>
+        <ul>
+          <li>听懂不同口音</li>
+          <li>辩论、聊观点、分析问题</li>
+          <li>听懂俚语玩笑能幽默回应</li>
+          <li>语法错误很少表达地道</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 避坑指南 ===== -->
+<section style="background: var(--surface);">
+  <div class="container">
+    <h2 class="section-title">自学避坑指南</h2>
+    <p class="section-desc">成人自学最容易踩的四个坑。</p>
+
+    <div class="pitfall-list">
+      <div class="pitfall-item">
+        <div class="pit-title">只背单词不做听力阅读</div>
+        <div class="pit-desc">单词会很快遗忘，而且无法使用。词汇必须在听和读里反复见到才算掌握。</div>
+      </div>
+      <div class="pitfall-item">
+        <div class="pit-title">一次性学很久然后中断</div>
+        <div class="pit-desc">稳定短时间远胜突击。中断一周，听力语感就明显下滑。每天 30 分钟坚持一年，胜过每天 3 小时坚持两周。</div>
+      </div>
+      <div class="pitfall-item">
+        <div class="pit-title">害怕开口</div>
+        <div class="pit-desc">哪怕自言自语录音也是输出。不用一开始就找外国人对话，先和 AI 练到不紧张再上真人。</div>
+      </div>
+      <div class="pitfall-item">
+        <div class="pit-title">疯狂刷难题</div>
+        <div class="pit-desc">成人学习目标是使用，不是应试。优先实用表达和场景对话，不要钻语法牛角尖。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    坚持是唯一的捷径 · 每天 30 分钟，终会有结果
+  </div>
+</footer>
+
+</body>
+</html>

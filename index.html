@@ -93,7 +93,7 @@
   .checkin-bar {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 16px 0;
+    padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -104,23 +104,23 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
   }
   .checkin-info {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-secondary);
   }
   .checkin-info strong {
     color: var(--primary);
-    font-size: 18px;
+    font-size: 16px;
   }
   .checkin-btn {
     background: var(--primary);
     color: white;
     border: none;
-    padding: 10px 24px;
-    border-radius: 10px;
-    font-size: 15px;
+    padding: 7px 18px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -132,30 +132,30 @@
   }
   .checkin-btn.done:hover { transform: none; }
 
-  /* ===== 进度环 ===== */
+  /* ===== 进度条 ===== */
   .progress-row {
     display: flex;
-    gap: 16px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 10px;
     flex-wrap: wrap;
   }
   .progress-item {
     flex: 1;
-    min-width: 140px;
+    min-width: 100px;
     background: var(--bg);
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: 8px;
+    padding: 8px 10px;
     text-align: center;
   }
   .progress-item .pct {
-    font-size: 24px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--primary);
   }
   .progress-item .p-label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
-    margin-top: 4px;
+    margin-top: 2px;
   }
 
   /* ===== Section ===== */
@@ -665,7 +665,7 @@
           <li><strong>第1–3个月：</strong>背高频生活词 2000 个，优先日常场景（购物、出行、饮食）</li>
           <li><strong>第4–6个月：</strong>扩展到 3000 词，重点短语搭配，不背孤立单词</li>
           <li><strong>第7–18个月：</strong>新词降到每天 8–12 个，从听力阅读里积累生词</li>
-          <li><strong>方法：</strong>多复习、重复习，旧词复习＞新词学习</li>
+          <li><strong>方法：</strong>常复习、重复习，旧词复习＞新词学习</li>
           <li><strong>误区：</strong>不要背生僻学术词，不要只记中文意思不记例句</li>
         </ul>
       </div>
@@ -775,7 +775,7 @@
 <section>
   <div class="container">
     <h2 class="section-title">和外国人对话的三个水平</h2>
-    <p class="section-desc">不是看证书，看实际听说能力。</p>
+    <p class="section-desc">看实际听说能力。</p>
     <div class="level-grid">
       <div class="level-card">
         <h3>基础对话</h3>
@@ -839,7 +839,7 @@
 
 <footer>
   <div class="container">
-    坚持是唯一的捷径 · 每天 30 分钟，一定会有成果
+    每天30分钟，一定会有成果
   </div>
 </footer>
 
@@ -933,7 +933,7 @@ function updateProgress() {
   }
   document.getElementById('weekProgress').textContent = Math.round(weekDays / 7 * 100) + '%';
 
-  // 3年总进度（已打卡天数 / 1095）
+  // 总进度（已打卡天数 / 1095）
   const total = calcTotal();
   document.getElementById('overallProgress').textContent = Math.round(total / 1095 * 100) + '%';
 }
